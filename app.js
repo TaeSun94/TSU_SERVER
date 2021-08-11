@@ -37,5 +37,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+//cors setting
+var cors = require('cors');
+app.use(cors('http://localhost:8080'));
+//version 1 connect directory
+var v1 = require('./v1/v1');
+app.use('/v1',v1);
 
 module.exports = app;
