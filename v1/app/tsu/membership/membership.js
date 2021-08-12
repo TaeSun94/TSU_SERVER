@@ -1,10 +1,114 @@
 var express = require('express');
 var membership = express.Router();
-//membership 관련 api생성시
 /*
+API 작성 예시
 membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
-
+    function logic
 });
 */
 
+/*
+Sign Up API
+1. id,pw -> General
+2. SNS or social Login
+*/
+membership.post('/signUpGeneral',function(req,res){
+    //validation 필요.
+    var member = {};
+    member.email = req.body.email;
+    member.password = req.body.password;
+    member.name = req.body.name;
+    member.major = req.body.major;
+    member.minor = req.body.minor;
+
+    //DB Connection -> DB insert member
+    //if (insert OK) -> 200 OK result true
+    //else -> result false // server - console.log or logging system -> function name + error msg // client -  Alert('서버와 연결이 끊어졌습니다. 다시 시도해주시기 바랍니다.') + web cashe clear
+    
+    //임시 return data
+    return res.send();
+});
+
+membership.post('/signUpSocial',function(req,res){
+    //validation 필요.
+    var member = {};
+    member.email = req.body.email;
+    member.password = req.body.password;
+    member.name = req.body.name;
+    member.major = req.body.major;
+    member.minor = req.body.minor;
+
+    //DB Connection -> DB insert member
+    //if (insert OK) -> 200 OK result true
+    //else -> result false // server - console.log or logging system -> function name + error msg // client -  Alert('서버와 연결이 끊어졌습니다. 다시 시도해주시기 바랍니다.') + web cashe clear
+    
+    //임시 return data
+    return res.send();
+});
+
+/*
+Modify API
+1. 회원 정보 수정 시 put method 사용
+2. 비밀번호 수정 시 patch method 사용
+*/
+membership.put('/modifyMember',function(req,res){
+    //validate
+    var member = {};
+    member.email = req.body.email;
+    member.password = req.body.password;
+    member.name = req.body.name;
+    member.major = req.body.major;
+    member.minor = req.body.minor;
+    //DB connect -> DB update member
+    //if(insert OK) -> 200 OK result true
+    //else -> result false // server - console.log or logging system -> function name + error msg // client - Alert('다시 시도 해주시기 바랍니다.')
+    
+    //임시 return data
+    return res.send();
+});
+
+/*
+Withdrawl API
+*/
+membership.delete('/withdrawMember',function(req,res){
+    //validate
+
+    //DB connect -> DB delete member
+    //if(delete ok) -> 200 Ok result true
+    //else -> result false
+});
+
+/*
+Login API
+1. general login
+2. social login -> social signup
+to-do 3. DID login
+*/
+membership.post('/loginGeneral', function(req,res){
+    //validate
+    var memberId = req.body.id;
+    var memberPw = req.body.memberPassword;
+    //DB connect -> DB select member && 비교 pw
+    //if (isOk) -> 200 ok result true
+    //else -> result false;
+});
+
+/*
+Check dual email API
+*/
+membership.get('/checkEmail',function(req,res){
+    //validate
+
+    //DB connect -> DB select count() member Email
+    //if(count == 0) -> return true, else return false;
+});
+
+/*
+Log out API
+*/
+membership.post('/logOut',function(req,res){
+    //validate
+
+    //session table delete member session
+})
 module.exports = membership;
