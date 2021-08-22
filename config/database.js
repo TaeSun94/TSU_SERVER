@@ -17,8 +17,8 @@ const dbConnection = {
             database: process.env.database 
         });
     },
-    open: function(con){
-        con.connect(err => {
+    open: function(connect){
+        connect.connect(err => {
             if(err){
                 console.log("DB 연결 실패!");
                 console.log("원인 : "+err);
@@ -28,8 +28,8 @@ const dbConnection = {
             }
         });
     },
-    close: function(con){
-        con.end(err => {
+    close: function(connect){
+        connect.end(err => {
             if(err){
                 console.log("DB 연결 종료 실패!");
                 console.log("원인 : "+err);

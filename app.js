@@ -37,11 +37,22 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 //cors setting
 var cors = require('cors');
 app.use(cors('http://localhost:8080'));
+
 //version 1 connect directory
 var v1 = require('./v1/v1');
 app.use('/v1',v1);
+
+//env 파일 사용
+const dotenv = require('dotenv').config();
+
+// database 추가
+const dbConnection = require('./config/database');
+const database = dbConnection.init();
+
+dbConnection.open(database);
 
 module.exports = app;
