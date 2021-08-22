@@ -1,9 +1,43 @@
 var mysql = require('mysql');
-var db = {};
-db.tsu = mysql.createConnection({
-    host: 'localhost:3306 or remote 접속 url',
-    user: 'DB root 계정 사용자',
-    password: 'DB 접속시 필요한 PW',
-    port: 3306,
-    database: '해당 공간에 들어있는 DB 이름'
-});
+// var db = {};
+// db.tsu = mysql.createConnection({
+//     host: 'localhost:3306 or remote 접속 url',
+//     user: 'DB root 계정 사용자',
+//     password: 'DB 접속시 필요한 PW',
+//     port: 3306,
+//     database: '해당 공간에 들어있는 DB 이름'
+// });
+const dbConnection = {
+    init: function(){
+        return mysql.createConnection({
+            host: process.env.host,
+            port: process.env.port,
+            user: process.env.user,
+            password: process.env.password,
+            database: process.env.database 
+        });
+    },
+    open: function(con){
+        con.connect(err => {
+            if(err){
+                console.log("DB 연결 실패!");
+                console.log("원인 : "+err);
+            }
+            else{
+                console.log("DB 연결 성공!");
+            }
+        });
+    },
+    close: function(con){
+        con.end(err => {
+            if(err){
+                console.log("DB 연결 종료 실패!");
+                console.log("원인 : "+err);
+            }
+            else{
+                console.log("DB 연결 종료 성공!");
+            }
+        })
+    }
+}
+module.exports = dbConnection;
