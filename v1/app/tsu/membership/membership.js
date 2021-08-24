@@ -6,6 +6,13 @@ membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
     function logic
 });
 */
+/*
+Test API
+*/
+membership.get('/test',function(req,res){
+    console.log("테스트 api 호출");
+    return res.json("API Test");
+});
 
 /*
 Sign Up API
