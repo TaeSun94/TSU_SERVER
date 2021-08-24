@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -19,8 +19,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//cors setting
+var cors = require('cors');
+app.use(cors('http://localhost:8080'));
+
+//version 1 connect directory
+var v1 = require('./v1/v1');
+app.use('/v1',v1);
+
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,16 +46,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//cors setting
-var cors = require('cors');
-app.use(cors('http://localhost:8080'));
-
-//version 1 connect directory
-var v1 = require('./v1/v1');
-app.use('/v1',v1);
-
 //env 파일 사용
-const dotenv = require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 // database 추가
 const dbConnection = require('./config/database');
