@@ -1,4 +1,8 @@
 var mysql = require('mysql');
+var configs = require('../config');
+// require('dotenv').config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 // var db = {};
 // db.tsu = mysql.createConnection({
 //     host: 'localhost:3306 or remote 접속 url',
@@ -6,15 +10,20 @@ var mysql = require('mysql');
 //     password: 'DB 접속시 필요한 PW',
 //     port: 3306,
 //     database: '해당 공간에 들어있는 DB 이름'
+// host: process.env.host,
+//             port: process.env.port,
+//             user: process.env.user,
+//             password: process.env.password,
+//             database: process.env.database 
 // });
 const dbConnection = {
     init: function(){
         return mysql.createConnection({
-            host: process.env.host,
-            port: process.env.port,
-            user: process.env.user,
-            password: process.env.password,
-            database: process.env.database 
+            host: configs.host,
+            port: configs.port,
+            user: configs.user,
+            password: configs.password,
+            database: configs.database 
         });
     },
     open: function(connect){
