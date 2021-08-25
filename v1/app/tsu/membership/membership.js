@@ -1,5 +1,6 @@
 var express = require('express');
 var membership = express.Router();
+var membershipDB = require('./membershipDB');
 /*
 API 작성 예시
 membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
@@ -9,7 +10,7 @@ membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
 /*
 Test API
 */
-membership.get('/test',function(req,res){
+membership.get('/test', (req,res) => {
     console.log("테스트 api 호출");
     return res.json("API Test");
 });
@@ -108,6 +109,14 @@ membership.get('/checkEmail',function(req,res){
 
     //DB connect -> DB select count() member Email
     //if(count == 0) -> return true, else return false;
+    membershipDB.checkEmail(req.query.member_email, (rows) => {
+        if(rows.COUNT > 0){
+            return res.json({result: false});
+        }
+        else{
+            return res.json({result: true});
+        }
+    });
 });
 
 /*
