@@ -1,6 +1,7 @@
 var express = require('express');
 var membership = express.Router();
 var membershipDB = require('./membershipDB');
+var result = require('../result');
 /*
 API 작성 예시
 membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
@@ -23,16 +24,23 @@ Sign Up API
 membership.post('/signUpGeneral',function(req,res){
     //validation 필요.
     var member = {};
-    member.email = req.body.email;
-    member.password = req.body.password;
-    member.name = req.body.name;
-    member.major = req.body.major;
-    member.minor = req.body.minor;
+    member.member_email = req.body.email;
+    member.member_password = req.body.password;
+    member.member_name = req.body.name;
+    member.member_major = req.body.major;
+    member.member_minor = req.body.minor;
 
     //DB Connection -> DB insert member
     //if (insert OK) -> 200 OK result true
     //else -> result false // server - console.log or logging system -> function name + error msg // client -  Alert('서버와 연결이 끊어졌습니다. 다시 시도해주시기 바랍니다.') + web cashe clear
-    
+    membershipDB.insertMember(member, (row) =>{
+        if(row){
+            return res.json({result: true});
+        }
+        else{
+            return res.json({result: false, msg: 'insert Error'});
+        }
+    });
     //임시 return data
     return res.send();
 });

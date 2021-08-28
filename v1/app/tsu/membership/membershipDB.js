@@ -15,7 +15,19 @@ minor varchar(45)
 membershipDB.signUpGenereal = ({props}) => {
 
 }
+membershipDB.insertMember = function(member, callback){
+    console.log(member);
+    var params = [];
+    var sql = "INSERT INTO MEMBER VALUE()";
+    membershipDB.database.query(sql,params, function(err,result){
+        if(err){
 
+        }
+        else{
+
+        }
+    });
+}
 membershipDB.checkEmail = function(member_email, callback){
     console.log(member_email);
     var params = [member_email];
