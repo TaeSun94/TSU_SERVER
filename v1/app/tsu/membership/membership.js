@@ -160,5 +160,10 @@ membership.post('/logOut',function(req,res){
     //validate
 
     //session table delete member session
-})
+});
+
+/*
+Find Password API, mod password, auth by email
+=> 방향에 대하여 좀 더 생각이 필요.
+*/
 module.exports = membership;
