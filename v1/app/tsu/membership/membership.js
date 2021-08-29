@@ -45,6 +45,7 @@ membership.post('/signUpGeneral',function(req,res){
     return res.send();
 });
 
+//To do: Google, kakao, naver, github
 membership.post('/signUpSocial',function(req,res){
     //validation 필요.
     var member = {};
@@ -78,7 +79,14 @@ membership.put('/modifyMember',function(req,res){
     //DB connect -> DB update member
     //if(insert OK) -> 200 OK result true
     //else -> result false // server - console.log or logging system -> function name + error msg // client - Alert('다시 시도 해주시기 바랍니다.')
-    
+    membershipDB.modifyMember(member, (row) =>{
+        if(row){
+            return res.json({result: true});
+        }
+        else{
+            return res.json({result: false, msg: 'insert Error'});
+        }
+    }); 
     //임시 return data
     return res.send();
 });
@@ -88,10 +96,19 @@ Withdrawl API
 */
 membership.delete('/withdrawMember',function(req,res){
     //validate
-
+    var member = {};
+    member.member_email = req.body.member_email;
     //DB connect -> DB delete member
     //if(delete ok) -> 200 Ok result true
     //else -> result false
+    membershipDB.deleteMember(member, (row) =>{
+        if(row){
+            return res.json({result: true});
+        }
+        else{
+            return res.json({result: false, msg: 'insert Error'});
+        }
+    }); 
 });
 
 /*
@@ -102,11 +119,20 @@ to-do 3. DID login
 */
 membership.post('/loginGeneral', function(req,res){
     //validate
-    var memberId = req.body.id;
-    var memberPw = req.body.memberPassword;
+    var member = {};
+    member.member_email = req.body.member_email;
+    member.member_password = req.body.member_password;
     //DB connect -> DB select member && 비교 pw
     //if (isOk) -> 200 ok result true
     //else -> result false;
+    membershipDB.getMember(member, (row) =>{
+        if(row){
+            return res.json({result: true});
+        }
+        else{
+            return res.json({result: false, msg: 'insert Error'});
+        }
+    });
 });
 
 /*
