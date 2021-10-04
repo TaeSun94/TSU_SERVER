@@ -25,4 +25,4 @@ result.parseError = function(errors){
   return parsed;
 };
 
-export default result;
+module.exports = result;
