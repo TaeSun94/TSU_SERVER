@@ -11,6 +11,17 @@ membership.HTTPMETHOD('API ROUTE', functions(req, res, next){
 /*
 Test API
 */
+/**
+ * @swagger
+ * path:
+ *  /test:
+ *      get:
+ *          summary: Test API
+ *          tags: [Membership]
+ *          response:
+ *              "200":
+ *                  description: Test Good
+ */
 membership.get('/test', (req,res) => {
     console.log("테스트 api 호출");
     return res.json("API Test");

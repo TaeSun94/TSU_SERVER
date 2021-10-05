@@ -34,10 +34,10 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "LogRocket Express API with Swagger",
+      title: "TSU Express API with Swagger",
       version: "0.1.0",
       description:
-        "This is a simple CRUD API application made with Express and documented with Swagger",
+        "TSU 서버 테스트를 위한 스웨거입니다.",
       license: {
         name: "MIT",
         url: "https://spdx.org/licenses/MIT.html",
@@ -47,14 +47,14 @@ const options = {
         url: "https://logrocket.com",
         email: "info@email.com",
       },
-    },
+    }, 
     servers: [
       {
-        url: "http://localhost:3000/v1/app/tsu/membership/membership.js",
+        url: "http://localhost:3000/v1/app/tsu",
       },
     ],
   },
-  apis: ["./v1/app/tsu/*/*.js"],
+  apis: ["./v1/app/tsu/membership/membership.js"],
 };
 
 const specs = swaggerJsdoc(options);
