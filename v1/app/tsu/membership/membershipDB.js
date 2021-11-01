@@ -18,7 +18,7 @@ membershipDB.signUpGenereal = ({props}) => {
 membershipDB.insertMember = function(member, callback){
     console.log(member);
     var params = [member.member_email,member.member_password, member.member_name, member.member_major, member.member_minor];
-    var sql = "INSERT INTO MEMBER (member_email, member_password, member_name, member_major, member_minor)VALUE(?,?,?,?,?)";
+    var sql = "INSERT INTO MEMBER (member_email, member_password, member_name, major, minor)VALUE(?,?,?,?,?)";
     membershipDB.database.query(sql,params, function(err){
         if(err){
             return callback(false);
