@@ -52,8 +52,6 @@ membership.post('/signUpGeneral',function(req,res){
             return res.json({result: false, msg: 'insert Error'});
         }
     });
-    //임시 return data
-    return res.send();
 });
 
 //To do: Google, kakao, naver, github
@@ -175,6 +173,6 @@ membership.post('/logOut',function(req,res){
 
 /*
 Find Password API, mod password, auth by email
-=> 방향에 대하여 좀 더 생각이 필요.
+=> put method를 이용하여 전체 데이터 수정이 아닌 일부 데이터 수정으로 바꿀 예정
 */
 module.exports = membership;
