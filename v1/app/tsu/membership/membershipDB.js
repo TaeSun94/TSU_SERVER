@@ -45,7 +45,8 @@ membershipDB.deleteMember = function(member, callback){
     console.log(member);
     var params = [member.member_email];
     var sql = "DELETE FROM member WHERE member_email = ?";
-    membershipDB.database.query(sql,params, function(err){
+    membershipDB.database.query(sql,params, function(err, result){
+        console.log(result);
         if(err){
             return callback(false);
         }
@@ -76,7 +77,7 @@ membershipDB.checkEmail = function(member_email, callback){
     // }
     membershipDB.database.query(sql, params, function(err, result){
         if(err){
-            console.log("database query err in membershipDB  : "+err);
+            console.log("database check email query err in membershipDB  : "+err);
             return callback(err);
         }
         else{

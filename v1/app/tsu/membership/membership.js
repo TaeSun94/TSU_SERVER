@@ -96,8 +96,6 @@ membership.put('/modifyMember',function(req,res){
             return res.json({result: false, msg: 'insert Error'});
         }
     }); 
-    //임시 return data
-    return res.send();
 });
 
 /*
@@ -111,6 +109,7 @@ membership.delete('/withdrawMember',function(req,res){
     //if(delete ok) -> 200 Ok result true
     //else -> result false
     membershipDB.deleteMember(member, (row) =>{
+        console.log(row);
         if(row){
             return res.json({result: true});
         }
