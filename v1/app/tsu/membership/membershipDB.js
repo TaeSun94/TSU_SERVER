@@ -19,12 +19,12 @@ membershipDB.insertMember = function(member, callback){
     console.log(member);
     var params = [member.member_email,member.member_password, member.member_name, member.member_major, member.member_minor];
     var sql = "INSERT INTO MEMBER (member_email, member_password, member_name, major, minor)VALUE(?,?,?,?,?)";
-    membershipDB.database.query(sql,params, function(err){
+    membershipDB.database.query(sql,params, function(err, data){
         if(err){
             return callback(false);
         }
         else{
-            return callback(true);
+            return callback(data);
         }
     });
 }
@@ -68,20 +68,18 @@ membershipDB.getMember = function(member, callback){
         }
     });
 }
+
+
 membershipDB.checkEmail = function(member_email, callback){
     console.log(member_email);
     var params = [member_email];
     var sql = "SELECT COUNT(*) AS COUNT FROM member WHERE member_email = ?";
-    // let [err, result] = async() =>{
-
-    // }
     membershipDB.database.query(sql, params, function(err, result){
         if(err){
             console.log("database check email query err in membershipDB  : "+err);
             return callback(err);
         }
         else{
-            // console.log(result);
             return callback(result);
         }
     });

@@ -45,6 +45,7 @@ membership.post('/signUpGeneral',function(req,res){
     //if (insert OK) -> 200 OK result true
     //else -> result false // server - console.log or logging system -> function name + error msg // client -  Alert('서버와 연결이 끊어졌습니다. 다시 시도해주시기 바랍니다.') + web cashe clear
     membershipDB.insertMember(member, (row) =>{
+        console.log(row);
         if(row){
             return res.json({result: true});
         }
@@ -152,7 +153,12 @@ membership.get('/checkEmail',function(req,res){
     //DB connect -> DB select count() member Email
     //if(count == 0) -> return true, else return false;
     membershipDB.checkEmail(req.query.member_email, (rows) => {
-        if(rows.COUNT > 0){
+        console.log(rows);
+        
+        for(var data of rows){
+            var count = data.COUNT;
+        }
+        if(count > 0){
             return res.json({result: false});
         }
         else{
