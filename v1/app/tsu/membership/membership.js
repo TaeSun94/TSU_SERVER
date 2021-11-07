@@ -169,6 +169,9 @@ membership.get('/checkEmail',function(req,res){
 
 /*
 Log out API
+
+
+To Do : log out의 로직이 필요하다고 생각되지않아 아직 구현x 만약 jwt를 이용한 토큰 처리를할 경우를 대비하여 form만 작성
 */
 membership.post('/logOut',function(req,res){
     //validate
