@@ -67,8 +67,14 @@ study.get('/getListStudy',(req,res)=>{
 });
 
 study.get('/getStudy',(req,res)=>{
-    var index = req.body.study_id;
-    studyDB.getStudy();
+    var studyItem = {};
+    studyItem.study_id = req.query.study_id;
+    studyDB.getStudy(studyItem,(row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    })
 })
 
 study.get('/searchStudy',(req,res)=>{
