@@ -18,4 +18,20 @@ study_recruit_status varchar(45)
 study_progress_status varchar(45)
 study_suggestion varchar(45)
 */
+
+studyDB.insertStudy = function(study,callback){
+    var params = [];
+    for(var data in study){
+        params.push(study[data]);
+    }
+    var sql = "INSERT INTO study (study_title, study_date, study_skill, study_content,study_day,study_time,study_member,study_recruit_status, study_progress_status, study_suggestion )VALUE(?,?,?,?,?,?,?,?,?,?)";
+    studyDB.database.query(sql,params,function(err,data){
+        if(err){
+            return callback(false);
+        }
+        else
+            return callback(data);
+    })
+    
+}
 module.exports = studyDB;
