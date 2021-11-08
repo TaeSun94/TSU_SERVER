@@ -32,6 +32,33 @@ studyDB.insertStudy = function(study,callback){
         else
             return callback(data);
     })
-    
 }
+
+studyDB.modifyStudy = function(study, callback){
+    var params = [];
+    for(var data in study){
+        params.push(study[data]);
+    }
+    var sql = "UPDATE study SET study_title = ?, study_mod_date = ?, study_skill = ?, study_day = ?, study_time = ?, study_member = ?, study_recruit_status = ?, study_progress_status = ? WHERE study_id = ?";
+    studyDB.database.query(sql,params,function(err,data){
+        if(err){
+            return callback(false);
+        }
+        else{
+            return callback(true);
+        }
+    })
+}
+
+studyDB.getStudy = function(study,callback){
+    var params = [study.study_id];
+    var sql = "SELECT * FROM study WHERE study_id=?";
+    studyDB.database.query(sql,params,function(err,data){
+        if(err)
+            return callback(false);
+        else
+            return callback(data);
+    });
+}
+
 module.exports = studyDB;

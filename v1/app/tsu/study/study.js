@@ -30,18 +30,28 @@ study.post('/createStudy', (req, res)=>{
 
 study.put('/modifyStudy', (req,res)=>{
     var studyItem = {};
-    studyItem.study_id = req.body.study_id;
     studyItem.study_title = req.body.study_title;
-    studyItem.study_date = req.body.study_date;
-    studyItem.study_mod_date = new Date().now();
+    studyItem.study_mod_date = new Date();
     studyItem.study_skill = req.body.study_skill;
     studyItem.study_day = req.body.study_day;
     studyItem.study_time = req.body.study_time;
     studyItem.study_member = req.body.study_member;
     studyItem.study_recruit_status = req.body.study_recruit_status;
     studyItem.study_progress_status = req.body.study_progress_status;
-    studyItem.study_suggestion = req.body.study_suggestion;
-    
+    studyItem.study_id = req.body.study_id;
+    studyDB.modifyStudy(studyItem,(row)=>{
+        if(row){
+            studyDB.getStudy(studyItem,(row)=>{
+                if(!row){
+                    return res.json(result.successFalse(row));
+                }
+                else
+                    return res.json(result.successTrue(row));
+            })
+        }
+        else
+            return res.json(result.successFalse(row));
+    })
 });
 
 study.patch('/changeStatus',(req,res)=>{
