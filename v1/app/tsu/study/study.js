@@ -93,7 +93,12 @@ study.patch('/changeProgressStatus',(req,res)=>{
 });
 
 study.get('/getListStudy',(req,res)=>{
-    studyDB.getList();
+    studyDB.getList((row)=>{
+        if(!row)
+            return res.json(result.successFalse());
+        else
+            return res.json(result.successTrue(row));
+    });
 });
 
 study.get('/getStudy',(req,res)=>{

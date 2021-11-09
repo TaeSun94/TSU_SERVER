@@ -95,4 +95,16 @@ studyDB.updateProgress = function(study, callback){
     });
 }
 
+studyDB.getList = function(callback){
+    var sql = "SELECT * FROM study";
+    studyDB.database.query(sql, function(err,data){
+        if(err){
+            return callback(false);
+        }
+        else{
+            return callback(data);
+        }
+    })
+}
+
 module.exports = studyDB;
