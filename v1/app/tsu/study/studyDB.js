@@ -26,6 +26,7 @@ studyDB.insertStudy = function(study,callback){
     }
     var sql = "INSERT INTO study (study_title, study_date, study_skill, study_content,study_day,study_time,study_member,study_recruit_status, study_progress_status, study_suggestion )VALUE(?,?,?,?,?,?,?,?,?,?)";
     studyDB.database.query(sql,params,function(err,data){
+        console.log(err);
         if(err){
             return callback(false);
         }
@@ -58,6 +59,39 @@ studyDB.getStudy = function(study,callback){
             return callback(false);
         else
             return callback(data);
+    });
+}
+
+studyDB.updateRecurit = function(study, callback){
+    var params = [];
+    for(var data in study){
+        params.push(study[data]);
+    }
+    var sql = "UPDATE study SET study_recruit_status = ? WHERE study_id = ? AND study_suggestion = ?";
+    studyDB.database.query(sql,params,function(err,data){
+        console.log(err);
+        if(err){
+            return callback(false);
+        }
+        else{
+            return callback(true);
+        }
+    });
+}
+
+studyDB.updateProgress = function(study, callback){
+    var params = [];
+    for(var data in study){
+        params.push(study[data]);
+    }
+    var sql = "UPDATE study SET study_progress_status = ? WHERE study_id = ? AND study_suggestion = ?";
+    studyDB.database.query(sql,params,function(err,data){
+        if(err){
+            return callback(false);
+        }
+        else{
+            return callback(true);
+        }
     });
 }
 

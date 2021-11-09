@@ -54,12 +54,42 @@ study.put('/modifyStudy', (req,res)=>{
     })
 });
 
-study.patch('/changeStatus',(req,res)=>{
+/*
+Change Recruit Status API
+*/
+study.patch('/changeRecruitStatus',(req,res)=>{
     var studyItem = {};
-    studyItem.study_id = req.body.study_id;
     studyItem.study_recruit_status = req.body.study_recruit_status;
+    studyItem.study_id = req.body.study_id;
+    studyItem.study_suggestion = req.body.member_email;
+
+    studyDB.updateRecurit(studyItem,(row)=>{
+        if(row){
+            return res.json(result.successTrue(row));
+        }
+        else{
+            return res.json(result.successFalse());
+        }
+    });
+});
+
+
+/*
+Change Progress Status API
+*/
+study.patch('/changeProgressStatus',(req,res)=>{
+    var studyItem = {};
     studyItem.study_progress_status = req.body.study_progress_status;
-    
+    studyItem.study_id = req.body.study_id;
+    studyItem.study_suggestion = req.body.member_email;
+    studyDB.updateProgress(studyItem,(row)=>{
+        if(row){
+            return res.json(result.successTrue(row));
+        }
+        else{
+            return res.json(result.successFalse());
+        }
+    });
 });
 
 study.get('/getListStudy',(req,res)=>{
