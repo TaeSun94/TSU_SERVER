@@ -141,7 +141,8 @@ study.get('/searchStudy',(req,res)=>{
 });
 
 /*
-
+Delete Study API
+제안자와 해당 스터디의 id를 비교하여 스터디 삭제 API 수행
 */
 study.delete('/deleteStudy',(req,res)=>{
     var studyItem = {};
