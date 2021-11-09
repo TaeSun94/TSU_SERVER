@@ -108,4 +108,18 @@ studyDB.getList = function(callback){
     })
 }
 
+studyDB.deleteStudy = function(study,callback){
+    var params = [];
+    for(var data in study){
+        params.push(study[data]);
+    }
+    var sql = "DELETE FROM study WHERE study_id = ? AND study_suggestion = ?";
+    studyDB.database.query(sql,params,function(err,data){
+        if(err)
+            return callback(false);
+        else
+            return callback(data);
+    })
+}
+
 module.exports = studyDB;

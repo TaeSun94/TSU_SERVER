@@ -139,4 +139,19 @@ study.get('/searchStudy',(req,res)=>{
     var searchItem = req.body.search_keyword;
 
 });
+
+/*
+
+*/
+study.delete('/deleteStudy',(req,res)=>{
+    var studyItem = {};
+    studyItem.study_id = req.body.study_id;
+    studyItem.study_suggestion = req.body.member_email;
+    studyDB.deleteStudy(studyItem,(row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    })
+})
 module.exports = study;
