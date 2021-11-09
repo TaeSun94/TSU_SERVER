@@ -96,8 +96,9 @@ studyDB.updateProgress = function(study, callback){
 }
 
 studyDB.getList = function(callback){
-    var sql = "SELECT * FROM study";
+    var sql = "SELECT * FROM study ORDER BY study_id desc";
     studyDB.database.query(sql, function(err,data){
+        console.log(err);
         if(err){
             return callback(false);
         }
