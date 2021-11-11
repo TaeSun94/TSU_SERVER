@@ -155,4 +155,49 @@ study.delete('/deleteStudy',(req,res)=>{
             return res.json(result.successTrue(row));
     })
 })
+
+/*
+Apply Study API
+스터디에 참여의사를 밝히는 API
+*/
+study.post('/apply',(req,res)=>{
+    var Item ={};
+    Item.study_id = req.body.study_id;
+    Item.member_email = req.body.member_email;
+
+});
+
+/*
+ToDO
+
+스터디 승인 또는 반려시 apply 테이블에서 해당 tuple 삭제
+or
+데이터 보관
+or
+새로운 테이블 생성하여 반려 목록과 승인 목록을 나눠 보관
+*/
+
+/*
+Approve Study API
+스터디장이 참여자의 참여의사 승인 API
+*/
+study.post('/apporve',(req,res)=>{
+    var Item ={};
+    Item.study_id = req.body.study_id;
+    Item.member_email = req.body.member_email;
+    Item.suggestion_id = req.body.suggestion_id;
+
+});
+
+/*
+Deny Study API
+스터디장이 참여자의 참여의사 반려 API
+*/
+study.post('/deny',(req,res)=>{
+    var Item ={};
+    Item.study_id = req.body.study_id;
+    Item.member_email = req.body.member_email;
+    Item.suggestion_id = req.body.suggestion_id;
+    
+});
 module.exports = study;
