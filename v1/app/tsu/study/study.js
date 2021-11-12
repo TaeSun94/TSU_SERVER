@@ -164,8 +164,20 @@ study.post('/apply',(req,res)=>{
     var Item ={};
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
-
+    
 });
+
+/*
+Cancle Study API
+스터디 참여 취소 API
+*/
+study.delete('/cancle', (req,res)=>{
+    var Item = {};
+    Item.study_id = req.body.study_id;
+    Item.member_email = req.body.member_email;
+
+
+})
 
 /*
 ToDO
