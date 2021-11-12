@@ -4,7 +4,6 @@ var studyDB = {};
 studyDB.database = connection.init();
 /*
 study table columns
-
 study_id int AI PK
 study_title varchar(45)
 study_date datetime
@@ -120,6 +119,15 @@ studyDB.deleteStudy = function(study,callback){
         else
             return callback(data);
     })
+}
+
+// 스터디 신청 관련 DB query function
+studyDB.insertApply = function(Item, callback){
+    var params = [];
+    for(var data in Item){
+        params.push(Item[data]);
+    }
+    var sql = "INSERT INTO "
 }
 
 module.exports = studyDB;
