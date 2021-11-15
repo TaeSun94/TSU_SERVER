@@ -164,7 +164,12 @@ study.post('/apply',(req,res)=>{
     var Item ={};
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
-    
+    studyDB.insertApply(Item,(row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    })
 });
 
 /*
@@ -176,8 +181,13 @@ study.delete('/cancle', (req,res)=>{
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
 
-
-})
+    studyDB.cancleApply(Item, (row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    });
+});
 
 /*
 ToDO
@@ -199,6 +209,12 @@ study.post('/apporve',(req,res)=>{
     Item.member_email = req.body.member_email;
     Item.suggestion_id = req.body.suggestion_id;
 
+    studyDB.apporveApply(Item,(row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    });
 });
 
 /*

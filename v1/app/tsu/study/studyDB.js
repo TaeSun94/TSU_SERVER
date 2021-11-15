@@ -1,4 +1,5 @@
 var connection = require('../../../../config/database');
+const study = require('./study');
 var studyDB = {};
 //database config 내부에서 init시 생성되는 DB connection을 객체로 들고 있어 반환하는 함수가 필요.
 studyDB.database = connection.init();
@@ -118,7 +119,7 @@ studyDB.deleteStudy = function(study,callback){
             return callback(false);
         else
             return callback(data);
-    })
+    });
 }
 
 // 스터디 신청 관련 DB query function
@@ -127,7 +128,42 @@ studyDB.insertApply = function(Item, callback){
     for(var data in Item){
         params.push(Item[data]);
     }
-    var sql = "INSERT INTO "
+    var sql = "INSERT INTO apply (study_id,member_email) value(?,?)";
+    studyDB.database.query(sql,params,(err,data)=>{
+        if(err)
+            return callback(false);
+        else
+            return callback(true);
+    });
 }
 
+studyDB.cancleApply = function(Item,callback){
+    var params = [];
+    for(var data in Item){
+        params.push(Item[data]);
+    }
+    var sql = "DELETE FROM apply where study_id = ? AND member_email = ?";
+    studyDB.database.query(sql,params,(err,data)=>{
+        if(err)
+            return callback(false);
+        else
+            return callback(true);
+    })
+}
+
+studyDB.apporveApply = function(Item, callback){
+    var params = [];
+    for(var data in Item){
+        params.push(Item[data]);
+    }
+    var sql = "";
+}
+
+studyDB.denyApply = function(Item,callback){
+    var params = [];
+    for(var data in Item){
+        params.push(Item[data]);
+    }
+    var sql = "";
+}
 module.exports = studyDB;
