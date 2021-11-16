@@ -181,7 +181,7 @@ study.delete('/cancle', (req,res)=>{
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
 
-    studyDB.cancleApply(Item, (row)=>{
+    studyDB.deleteApply(Item, (row)=>{
         if(!row)
             return res.json(result.successFalse(row));
         else
@@ -203,18 +203,25 @@ or
 Approve Study API
 스터디장이 참여자의 참여의사 승인 API
 */
-study.post('/apporve',(req,res)=>{
+study.post('/approve',(req,res)=>{
     var Item ={};
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
-    Item.suggestion_id = req.body.suggestion_id;
-
-    studyDB.apporveApply(Item,(row)=>{
-        if(!row)
-            return res.json(result.successFalse(row));
+    Item.suggestin_id = req.body.study_id;
+    Item.study_suggestion = req.body.study_suggestion;
+    console.log(Item);
+    studyDB.deleteApply(Item,(row)=>{
+        if(row){
+            studyDB.apporveApply(Item,(row)=>{
+                if(!row)
+                    return res.json(result.successFalse(row));
+                else
+                    return res.json(result.successTrue(row));
+            });
+        }
         else
-            return res.json(result.successTrue(row));
-    });
+            return res.json(result.successFalse(row));
+    })
 });
 
 /*
@@ -225,7 +232,11 @@ study.post('/deny',(req,res)=>{
     var Item ={};
     Item.study_id = req.body.study_id;
     Item.member_email = req.body.member_email;
-    Item.suggestion_id = req.body.suggestion_id;
-    
+    studyDB.deleteApply(Item,(row)=>{
+        if(!row)
+            return res.json(result.successFalse(row));
+        else
+            return res.json(result.successTrue(row));
+    });
 });
 module.exports = study;

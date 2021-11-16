@@ -137,7 +137,7 @@ studyDB.insertApply = function(Item, callback){
     });
 }
 
-studyDB.cancleApply = function(Item,callback){
+studyDB.deleteApply = function(Item,callback){
     var params = [];
     for(var data in Item){
         params.push(Item[data]);
@@ -156,14 +156,15 @@ studyDB.apporveApply = function(Item, callback){
     for(var data in Item){
         params.push(Item[data]);
     }
-    var sql = "";
-}
-
-studyDB.denyApply = function(Item,callback){
-    var params = [];
-    for(var data in Item){
-        params.push(Item[data]);
-    }
-    var sql = "";
+    console.log(params);
+    var sql = "INSERT INTO member_join_study (study_id, member_email) values (?,?) FROM study WHERE study_id = ? AND study_suggestion = ?";
+    studyDB.database.query(sql,params,(err,data)=>{
+        console.log(data);
+        console.log(err);
+        if(err)
+            return callback(false);
+        else
+            return callback(true);
+    })
 }
 module.exports = studyDB;
