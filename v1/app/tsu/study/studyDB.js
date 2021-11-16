@@ -150,7 +150,12 @@ studyDB.deleteApply = function(Item,callback){
             return callback(true);
     })
 }
+/*
+ToDo
+mysql에는 insert 문에 where 절을 삽입할 수 없다.(오라클은 가능)
 
+그럼 exist로 확인한 뒤에 OK이면 insert를 해야하는가
+*/
 studyDB.apporveApply = function(Item, callback){
     var params = [];
     for(var data in Item){
