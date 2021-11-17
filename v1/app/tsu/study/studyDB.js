@@ -154,18 +154,15 @@ studyDB.deleteApply = function(Item,callback){
 ToDo
 mysql에는 insert 문에 where 절을 삽입할 수 없다.(오라클은 가능)
 
-그럼 exist로 확인한 뒤에 OK이면 insert를 해야하는가
+그럼 exist로 확인한 뒤에 OK이면 insert를 해야하는가 X => 로직으로 해결 -> Approve Study API에서 study_id를 이용하여 getStudy 함수를 호출한 뒤 받아온 데이터를 갖고 해당 제안자와 API body로 들어온 데이터와 비교한 뒤 맞다면 승인을 할 수 있도록 해결
 */
 studyDB.apporveApply = function(Item, callback){
     var params = [];
     for(var data in Item){
         params.push(Item[data]);
     }
-    console.log(params);
-    var sql = "INSERT INTO member_join_study (study_id, member_email) values (?,?) FROM study WHERE study_id = ? AND study_suggestion = ?";
+    var sql = "INSERT INTO member_join_study (study_id, member_email) values (?,?)";
     studyDB.database.query(sql,params,(err,data)=>{
-        console.log(data);
-        console.log(err);
         if(err)
             return callback(false);
         else

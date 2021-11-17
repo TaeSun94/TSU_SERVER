@@ -209,18 +209,27 @@ study.post('/approve',(req,res)=>{
     Item.member_email = req.body.member_email;
     Item.suggestin_id = req.body.study_id;
     Item.study_suggestion = req.body.study_suggestion;
-    console.log(Item);
-    studyDB.deleteApply(Item,(row)=>{
-        if(row){
-            studyDB.apporveApply(Item,(row)=>{
-                if(!row)
-                    return res.json(result.successFalse(row));
-                else
-                    return res.json(result.successTrue(row));
-            });
-        }
-        else
+    studyDB.getStudy(Item,(row)=>{
+        if(!row)
             return res.json(result.successFalse(row));
+        else{
+            if(Item.study_suggestion === row[0].study_suggestion){
+                studyDB.deleteApply(Item,(row)=>{
+                    if(row){
+                        studyDB.apporveApply(Item,(row)=>{
+                            if(!row)
+                                return res.json(result.successFalse(row));
+                            else
+                                return res.json(result.successTrue(row));
+                        });
+                    }
+                    else
+                        return res.json(result.successFalse(row));
+                })
+            }
+            else
+                return res.json(result.successFalse(false));
+        }
     })
 });
 
